@@ -12,3 +12,20 @@ export const reqCharacters = async () => {
 
     return data
 }
+
+
+
+
+
+export const reqPersonaje = async () => {
+    try {
+
+        const resp = await fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=${time_stamp}&apikey=${public_api_key}&hash=${hash}`)
+        const { data } = await resp.json()
+
+        console.log(data)
+
+    } catch (err) {
+        console.error(err)
+    }
+}

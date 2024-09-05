@@ -4,6 +4,14 @@ import { reqCharacters } from "../service/characters"
 export const useCharacters = () => {
 
     const [characters, setCharacters] = useState()
+    const [url, setUrl] = useState('')
+
+    const handleGetCharacters = () =>{
+        reqCharacters().then((url) => console.log(url))
+    }
+
+
+
 
     useEffect(() => {
         // Si no tiene dependencias solo se ejecuta en la primera carga del componente
@@ -14,9 +22,14 @@ export const useCharacters = () => {
         })
     }, []/*dependecias o que van a actualizar o volver a ejecturar*/)
 
+    
+
+
 
     //retorno hook
     return {
         characters,
+        handleGetCharacters,
+        url,
     }
 }
