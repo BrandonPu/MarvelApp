@@ -12,7 +12,7 @@ export const useCharacters = () => {
         reqCharacters().then((data) =>{
             setCharacters(data.results)
         })
-    }, []/*Dependecias o que van a actualizar o volver a ejecturar*/)
+    }, []/*dependecias o que van a actualizar o volver a ejecturar*/)
 
 
     //retorno hook
