@@ -17,6 +17,7 @@ export const MarvelApp = () => {
 
   return (
     <>
+    <h1>Marvel App de Pu</h1>
     <SearchCharacter onSearch={handleSearch}/>
       <GridCharacters characters={characters}/>
       <Pagination className="d-flex justify-content-center mt-5" count={Math.round(total/20)} onChange={(e,value)=>{setCurrentpage(value)}} />
