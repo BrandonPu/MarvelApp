@@ -1,21 +1,25 @@
+import { useCharacters } from "../hooks/useCharacters";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { useCharacters } from "../hooks/useCharacters"
-import { GridCharacters } from "./GridCharacters";
+import {GridCharacters} from './GridCharacters'
+import { useState} from "react";
+import { SearchCharacter } from "./SearchCharacter";
 
 export const MarvelApp = () => {
+  const [currentpage, setCurrentpage] = useState()
+  const [searchCharacter, setSearchCharacter] = useState("");
+  const { characters, total } = useCharacters(currentpage, searchCharacter);
 
-    const { characters } = useCharacters()
+  const handleSearch = (character) => {
+    setSearchCharacter(character); 
+  };
+  
 
-    const {handleGetCharacters ,url} = useCharacters()
-
-    return (
-        <>
-            <h1>Marvel App de Brandon Pu</h1>
-            <button onClick={handleGetCharacters}>Buscar Personaje</button>
-            <img src={url} />
-            <GridCharacters characters={characters} />
-            <Pagination count={100} size="large" onChange={(e, value) => console.log(value)} />
-        </>
-    )
-}
+  return (
+    <>
+    <SearchCharacter onSearch={handleSearch}/>
+      <GridCharacters characters={characters}/>
+      <Pagination className="d-flex justify-content-center mt-5" count={Math.round(total/20)} onChange={(e,value)=>{setCurrentpage(value)}} />
+    </>
+  );
+};

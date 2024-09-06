@@ -1,35 +1,24 @@
-import { useEffect, useState } from "react"
-import { reqCharacters } from "../service/characters"
+import { useState, useEffect } from "react";
+import { reqCharacters } from "../service/characters";
 
-export const useCharacters = () => {
+export const useCharacters = (currentpage, searchCharacter) => {
+  const [characters, setCharacters] = useState([]);
+  const [total, setTotal] = useState();
 
-    const [characters, setCharacters] = useState()
-    const [url, setUrl] = useState('')
+   
 
-    const handleGetCharacters = () =>{
-        reqCharacters().then((url) => console.log(url))
-    }
-
-
-
-
-    useEffect(() => {
-        // Si no tiene dependencias solo se ejecuta en la primera carga del componente
-        //si si tiene dependencias, Se ejectuta cada que la dependencia cambia
-        
-        reqCharacters().then((data) =>{
-            setCharacters(data.results)
-        })
-    }, []/*dependecias o que van a actualizar o volver a ejecturar*/)
-
+  useEffect(() => {
     
+    reqCharacters(currentpage, searchCharacter).then((data)=>{
+        setCharacters(data.results)
+        setTotal(data.total)
+    })
+  }, [currentpage, searchCharacter]);
 
 
 
-    //retorno hook
-    return {
-        characters,
-        handleGetCharacters,
-        url,
-    }
-}
+  return {
+    characters,
+    total
+  };
+};
